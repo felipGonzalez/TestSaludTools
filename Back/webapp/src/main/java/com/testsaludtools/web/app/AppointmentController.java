@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.testsaludtools.web.services.service.AppointmentService;
 
 @RestController
 @RequestMapping("/appointment")
+@CrossOrigin(origins = "*")
 public class AppointmentController {
 
 	private AppointmentService appointmentService;
@@ -45,6 +47,9 @@ public class AppointmentController {
 	        @RequestParam(defaultValue = "0") int page,
 	        @RequestParam(defaultValue = "3") int size){
 		try {
+			System.out.println(orderBy);
+			System.out.println("PAge "+page);
+			System.out.println("Size "+size);
 			PageAppointmentDto PageAppointmentDto = this.appointmentService.findAllAppointments(page, size, orderBy);
 			return ResponseEntity.ok(PageAppointmentDto);
 		} catch (Exception e) {

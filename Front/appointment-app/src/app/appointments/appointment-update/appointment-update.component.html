@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="position-relative">
+        <div class="position-absolute top-0 end-0">
+            <span class="material-icons" (click)="closeDialog()">
+                cancel
+            </span>
+        </div>
+    </div>
+    <div>
+        <h1 class="text-uppercase">Crear tipo de cita</h1>
+
+    </div>
+    <hr>
+
+    <form [formGroup]="appointmentForm">
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="name">Nombre</label>
+                <input formControlName="name" name="name" type="text" class="form-control"
+                    [ngClass]="{ 'is-invalid': isSubmitted && formControls.name.errors }" />
+                <div *ngIf="isSubmitted && formControls.name.errors" class="invalid-feedback">
+                    <div *ngIf="formControls.name.errors.required">el nombre es requerido</div>
+                </div>
+            </div>
+
+            <div class="form-group col-6">
+                <label for="dni">Duración</label>
+                <input formControlName="duration" name="duration" type="number" class="form-control"
+                    placeholder="duración en minutos"
+                    [ngClass]="{ 'is-invalid': isSubmitted && formControls.duration.errors }" />
+                <div *ngIf="isSubmitted && formControls.duration.errors" class="invalid-feedback">
+                    <div *ngIf="formControls.duration.errors.required">La duración es requerido</div>
+                    <div *ngIf="formControls.duration.errors.pattern">La duración no es valido</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="name">Descripción</label>
+            <textarea class="form-control" aria-label="With textarea" formControlName="description" name="description"
+                type="text" class="form-control"></textarea>
+        </div>
+
+
+        <div class="text-center">
+            <div class="hstack gap-3 text-center">
+                <div class="">
+                    <div class="form-group">
+                        <mat-slide-toggle [checked]="active" (change)="updateActiveStatus()">
+                            Estado
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="">
+                    <div>
+                        <label for="ColorInput" class="form-label">Personalizar color</label>
+                        <input type="color" class="form-control form-control-color" id="ColorInput" formControlName="color"
+                            name="color" class="form-control" placeholder="duración en minutos"
+                            style="max-width: 100px !important;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </form>
+
+    <div class="d-grid col-6 mx-auto" style="margin-top: 10px;">
+        <button class="salud-btn" mat-button [disabled]="btnRegisterActive" (click)="checkData()">
+            Registrarme
+        </button>
+    </div>
+
+
+
+</div>

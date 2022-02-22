@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'scss/variables';
+
+
+// COMMONS
+@import 'scss/commons/buttons';
+
+
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, 
+    "Helvetica Neue", sans-serif; 
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.invalid-feedback{
+    font-size: 14px;
+    color: $red;
+    width: 100%;
+    div{
+        margin: .2em .4em;
+    }
+}
+
+.form-group{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+

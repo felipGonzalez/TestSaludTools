@@ -1,0 +1,122 @@
+.salud{
+    &-btn{
+        background: $blueA !important;
+        font-family: $h-m;
+        text-transform: uppercase;
+        padding: 0.3em 1.6em !important;
+        color: $white;
+        .icon{
+            border: 2px solid $white;
+            border-radius: 50%;
+            width: 21px;
+            height: 21px;
+            display: inline-block;
+            line-height: 1;
+            font-family: $h-r;
+            font-size: 17px;
+            margin-right: 6px;
+            margin-top: -3.2px;
+            
+        }
+        &--secundary{
+            background: none !important;
+            color: $black !important;
+            padding: 0 !important;
+            .mat-button-focus-overlay{
+                display: none;
+            }
+            .icon{
+                border: 2px solid $purpleB;
+            }
+        }
+    }
+    &-link{
+        color: $purpleB;
+        text-decoration: underline;
+    }
+}
+
+.mat-slide-toggle-thumb {
+    width: 16px !important;
+    height: 16px !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: $white !important;
+}
+
+.mat-slide-toggle-bar {
+  background-color: $red;
+  border-radius: 15px !important;
+  height: 18px !important;
+}
+
+.mat-slide-toggle-thumb-container {
+    top: 0.8px !important;
+    left: .5px !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: $green;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{
+    transform: translate3d(18px, 0, 0) !important;
+}
+// .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+//   background-color: #fff;
+// }
+
+.link-icon{
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+    cursor: pointer;
+    &.icon-edit{
+        font-size: 0;
+        background: url('/assets/img/icons/icon-edit.png') no-repeat;
+        background-size: contain;
+    }
+    &.icon-delete{
+        font-size: 0;
+        background: url('/assets/img/icons/icon-delete.png') no-repeat;
+        background-size: contain;
+    }
+}
+
+.close-btn{
+    font-size: 0;
+    border: 2px solid $gray;
+    border-radius: 50%;
+    background: transparent;
+    width: 28px;
+    height: 28px;
+    outline: none;
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    cursor: pointer;
+    &::before,
+    &::after{
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 17px;
+        height: 2px;
+        background: $gray;
+        border-radius: 7px;
+    }
+    &::after{
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    // @include mq('md'){
+    //     right: 2%;
+    //     top: 5%;
+    // }
+}

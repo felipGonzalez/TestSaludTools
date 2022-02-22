@@ -1,0 +1,100 @@
+@import '../../scss/mixins';
+@import '../../scss/fonts';
+@import '../../scss/variables';
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1.4em;
+    .mat-table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        display: table;
+        border-collapse: collapse;
+        margin: 0px;
+        background: $white;
+    }
+    .mat-row,
+    .mat-header-row {
+        display: table-row;
+        &:last-of-type{
+            .mat-cell,
+            .mat-header-cell{
+                border-bottom: none !important;
+            }
+        }
+    }
+    .mat-header-row{
+        background: #E3F5F4;
+        text-transform: uppercase;
+        .mat-header-cell{
+            color: #131523;
+            font-family: $h-m;
+        }
+    }
+    .mat-cell,
+    .mat-header-cell {
+        word-wrap: initial;
+        display: table-cell;
+        padding: 1em 14px;
+        line-break: unset;
+        width: auto;
+        white-space: nowrap;
+        overflow: hidden;
+        vertical-align: middle;
+        color: $black;
+        font-family: $r-r;
+        border-bottom: 1px solid rgba($grayM, .2);
+    }
+    .action-link{
+        a{
+            width: 19px;
+            height: 19px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 15px;
+            cursor: pointer;
+            &:first-of-type{
+                font-size: 0;
+                background: url('/assets/img/icons/icon-edit.png') no-repeat;
+                background-size: contain;
+            }
+            &:last-of-type{
+                font-size: 0;
+                background: url('/assets/img/icons/icon-delete.png') no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+    .action-link-reload{
+        a{
+            width: 19px;
+            height: 19px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 15px;
+            cursor: pointer;
+            &:first-of-type{
+                font-size: 0;
+                background: url('/assets/img/icons/reload.png') no-repeat;
+                background-size: contain;
+            }
+            &:last-of-type{
+                font-size: 0;
+                background: url('/assets/img/icons/icon-delete.png') no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+  }
+.top-items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    @include mq('md'){
+        flex-direction: row;
+    }
+}

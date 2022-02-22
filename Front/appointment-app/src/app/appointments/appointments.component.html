@@ -1,0 +1,99 @@
+<!-- As a heading -->
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 text-white">Prueba Técnica SaludTools</span>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div>
+        <div class="row head-content">
+            <div class="col-md-6 col-xl-8">
+                <h2 class="title text-uppercase">Tipos de citas</h2>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <button type="button" class="btn btn-outline-primary btn-lg" (click)="openDialog(undefined)">
+                    <span
+                    class="icon">+</span>
+                    Agregar nuevo tipo de cita</button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="top-items">
+        <mat-form-field class="custom-input">
+            <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+        </mat-form-field>
+        <mat-paginator [length]="elementsTotal" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        aria-label="Seleccionar página" (page)="handlePageEvent($event)" [pageIndex]="pageIndex"
+        [showFirstLastButtons]="showFirstLastButtons">
+    </mat-paginator>
+    </div>
+
+
+
+<div class="table-responsive">
+    <table mat-table [dataSource]="dataSourceTwo" #mytable class="my-table mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="#">
+            <th mat-header-cell *matHeaderCellDef> # </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.id}} 
+            </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element" [ngStyle]="{'color': element.color}">          
+                {{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef> Duración </th>
+            <td mat-cell *matCellDef="let element"> {{element.duration}} minutos</td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="creationDate">
+            <th mat-header-cell *matHeaderCellDef> Creado </th>
+            <td mat-cell *matCellDef="let element">{{element.creationDate | date:'medium'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastEdition">
+            <th mat-header-cell *matHeaderCellDef> Ultimo cambio </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastEdition | date:'medium'}}</td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="toggle">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-slide-toggle [checked]="element.active" (change)="updateActiveStatus(element)">
+                </mat-slide-toggle>
+            </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+                <a matTooltip="Actualizar" matTooltipPosition="left" matTooltipClass="tooltip-class"
+                    (click)="openDialog(element)">Edit</a>
+                <a matTooltip="Eliminar" matTooltipPosition="left" matTooltipClass="tooltip-class"
+                    (click)="openModalWarning(element)">Delete</a>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+</div>

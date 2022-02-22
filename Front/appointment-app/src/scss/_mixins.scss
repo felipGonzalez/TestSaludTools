@@ -1,0 +1,217 @@
+$img-path:"../../images/";
+$main-font: 16;
+// BEM
+$combined-state-selectors: true !default;
+$element-separator:        "__" !default;
+$modifier-separator:       "--" !default;
+$state-prefix:             "is" !default;
+
+@mixin block($name) {
+  .#{$name} {
+    @content;
+  }
+}
+@mixin element($name) {
+  @at-root {
+    &#{$element-separator}#{$name} {
+      @content;
+    }
+  }
+}
+@mixin modifier($name) {
+  @at-root {
+    &#{$modifier-separator}#{$name} {
+      @content;
+    }
+  }
+}
+@mixin state($state, $prefix: $state-prefix) {
+  @if $combined-state-selectors == true {
+    @at-root {
+      &.#{$prefix}-#{$state} {
+        @content;
+      }
+    }
+  }
+  @else {
+    @at-root {
+      &#{$modifier-separator}#{$prefix}-#{$state} {
+        @content;
+      }
+    }
+  }
+}
+@mixin component($name) {
+  @include block($name) {
+    @content;
+  }
+}
+@mixin child($name) {
+  @include element($name) {
+    @content;
+  }
+}
+@mixin subcomponent($name) {
+  @include element($name) {
+    @content;
+  }
+}
+@mixin sub($name) {
+  @include element($name) {
+    @content;
+  }
+}
+
+//IE Mixin
+@mixin internetExplorer10AndAbove() {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    @content;
+  }
+}
+
+@mixin bp($class) {
+  @if $class==xs {
+      @media (max-width: 430px) {
+          @content;
+      }
+  }
+  @else if $class==sm {
+      @media (min-width: 600px) {
+          @content;
+      }
+  }
+  @else if $class==md {
+      @media (min-width: 769px) {
+          @content;
+      }
+  }
+  @else if $class==lg {
+      @media (min-width: 1025px) {
+          @content;
+      }
+  }
+  @else if $class==llg {
+      @media (min-width: 1280px) {
+          @content;
+      }
+  }
+  @else if $class==xxsm {
+      @media (min-width: 320px) {
+          @content;
+      }
+  }
+  @else if $class==xsm {
+      @media (min-width: 430px) {
+          @content;
+      }
+  }
+  @else if $class==xmd {
+      @media (min-width: 645px) {
+          @content;
+      }
+  }
+  @else {
+      @warn "Breakpoint mixin supports: xs, sm, md, lg";
+  }
+}
+
+@mixin mq($class) {
+  @if $class==xs {
+      @media (max-width: 430px) {
+          @content;
+      }
+  }
+  @else if $class==sm {
+      @media (min-width: 600px) {
+          @content;
+      }
+  }
+  @else if $class==md {
+      @media (min-width: 769px) {
+          @content;
+      }
+  }
+  @else if $class==lg {
+      @media (min-width: 1025px) {
+          @content;
+      }
+  }
+  @else if $class==llg {
+      @media (min-width: 1280px) {
+          @content;
+      }
+  }
+  @else if $class==xxsm {
+      @media (min-width: 320px) {
+          @content;
+      }
+  }
+  @else if $class==xsm {
+      @media (min-width: 430px) {
+          @content;
+      }
+  }
+  @else if $class==xmd {
+      @media (min-width: 645px) {
+          @content;
+      }
+  }
+  @else {
+      @warn "Breakpoint mixin supports: xs, sm, md, lg";
+  }
+}
+@mixin verticalcenter() {
+  top:50%;
+  transform: translate(0,-50%);
+}
+
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -moz-transform:    $value;
+  -ms-transform:     $value;
+  -o-transform:      $value;
+  transform:         $value;
+}
+
+@mixin border-radius($value) {
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+  border-radius: $value;
+}
+
+@mixin appearance($value) {
+  -webkit-appearance: $value;
+  -moz-appearance:    $value;
+  appearance:         $value;
+}
+
+@mixin transition($value) {
+  -webkit-transition: all $value ease;
+  -moz-transition: all $value ease;
+  -o-transition: all $value ease;
+  transition: all $value ease;
+}
+@mixin box-shadow($value) {
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin sprite($vmobile, $vdesktop){   
+    background-image: url($img-path+'icon-sprite-mobile.png') ;
+    background-size: auto;
+    background-position: $vmobile;
+    @include breakpoint(sm) {
+      background-image: url($img-path+'icon-sprite-desktop.png');
+      background-position: $vdesktop;
+    }    
+}
+
+
+/************************************/
+/*/           Functions            /*/
+/************************************/
+
+@function fontem($px){
+  @return ($px / $main-font) + em;
+}
