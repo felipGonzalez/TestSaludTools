@@ -32,6 +32,15 @@ public interface AppointmentService {
 	 */
 	public Optional<AppointmentDto> saveAppointment(AppointmentDto appointmentDto) throws IllegalArgumentException;
 	
+	
+	/**
+	 * update appointmet
+	 * @param appointmentDto data of new appointment
+	 * @return id of created appointment
+	 * @throws DataNotNull
+	 */
+	public Optional<AppointmentDto> updateAppointment(AppointmentDto appointmentDto,Long appointmentId) throws IllegalArgumentException;
+	
 	/**
 	 * Delete a Appointment for the approved id.
 	 * @param appointmentId appointmentId id of the appointment

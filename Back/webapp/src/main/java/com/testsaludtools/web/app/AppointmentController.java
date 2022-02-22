@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,10 +56,24 @@ public class AppointmentController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<AppointmentDto> updateBranch(@RequestBody AppointmentDto appointmentDto) {
+	public ResponseEntity<AppointmentDto> saveBranch(@RequestBody AppointmentDto appointmentDto) {
 		Optional<AppointmentDto> newAppointment = Optional.empty();
 		try {
 			newAppointment = this.appointmentService.saveAppointment(appointmentDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		return newAppointment.isPresent() ?
+				ResponseEntity.ok(newAppointment.get()) :
+					ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	@PutMapping("/{appointmentId}")
+	public ResponseEntity<AppointmentDto> updateBranch(@RequestBody AppointmentDto appointmentDto,@PathVariable Long appointmentId) {
+		Optional<AppointmentDto> newAppointment = Optional.empty();
+		try {
+			newAppointment = this.appointmentService.updateAppointment(appointmentDto, appointmentId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

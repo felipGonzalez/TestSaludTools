@@ -1,6 +1,7 @@
 package com.testsaludtools.web.services.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,9 +60,36 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Optional<AppointmentDto> saveAppointment(AppointmentDto appointmentDto) throws IllegalArgumentException{
 		checkNulls(appointmentDto);
 		Appointment appointment = modelMapper.map(appointmentDto, Appointment.class);
+		appointment.setCreationDate(new Date());
+		appointment.setLastEdition(new Date());
 		Optional<Appointment> newAppointment  = Optional.ofNullable(this.appointmentRepository.save(appointment));
 		return newAppointment.isPresent() ?
 				Optional.ofNullable(modelMapper.map(newAppointment.get(), AppointmentDto.class)) :
+					Optional.empty();
+	}
+	
+
+	@Override
+	public Optional<AppointmentDto> updateAppointment(AppointmentDto appointmentDto, Long appointmentId) throws IllegalArgumentException {
+		Optional<Appointment> optional = appointmentRepository.findById(appointmentId);
+		if (optional.isEmpty()) {
+			return Optional.empty();
+		}
+		
+		checkNulls(appointmentDto);
+		
+		Appointment newAppointment = modelMapper.map(appointmentDto, Appointment.class);
+		Appointment appointment = optional.get();
+		appointment.update(
+				newAppointment.getName(), 
+				newAppointment.getDescription(), 
+				newAppointment.getColor(),
+				newAppointment.getDuration(),
+				newAppointment.isActive());
+		
+		Optional<Appointment> newAppointmentOpt  = Optional.ofNullable(this.appointmentRepository.save(appointment));
+		return newAppointmentOpt.isPresent() ?
+				Optional.ofNullable(modelMapper.map(newAppointmentOpt.get(), AppointmentDto.class)) :
 					Optional.empty();
 	}
 
@@ -86,10 +114,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 		
 		if( Objects.isNull(appointmentDto.isActive())) {
 			throw new IllegalArgumentException("active cannot be null or empty"); 
-		}
-		
-		if( Objects.isNull(appointmentDto.getCreationDate())) {
-			throw new IllegalArgumentException("creation date cannot be null or empty"); 
 		}
 	}
 	

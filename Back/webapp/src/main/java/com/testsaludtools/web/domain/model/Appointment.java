@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -42,13 +43,19 @@ public class Appointment implements Serializable{
 	@Column(nullable = false)
 	private boolean active;
 	
-	@Column(nullable = false)
 	private Date creationDate;
 	
 	private Date lastEdition;
-	
-	@PrePersist
-	public void prePersist() {
+
+	public void update(String name, String description, String color, int duration, boolean active) {
+		this.name = name;
+		this.description = description;
+		this.color = color;
+		this.duration = duration;
+		this.active = active;
 		this.lastEdition = new Date();
 	}
+	
+
+	
 }

@@ -43,12 +43,9 @@ public class AppointmentServiceTest {
 		appointment.setColor("FFFFFF");
 		appointment.setActive(true);
 		appointment.setDuration(20);
-		Date creationDate = new Date();
-		appointment.setCreationDate(creationDate);
 		appointmentRepository.save(appointment);
 		
 		Optional<AppointmentDto> appOptional = appointmentService.findAppointmentById(appointment.getId());
-		
 		
 		assertEquals(true, appOptional.isPresent());
 		AppointmentDto appointmentDto = appOptional.get(); 
@@ -58,7 +55,6 @@ public class AppointmentServiceTest {
         assertEquals(appointmentDto.getColor(), "FFFFFF");
         assertEquals(appointmentDto.isActive(), true);
         assertEquals(appointmentDto.getDuration(), 20);
-        //assertEquals(appointmentDto.getCreationDate(), creationDate);
    	}
 	
 	
