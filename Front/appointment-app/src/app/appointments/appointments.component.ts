@@ -7,6 +7,7 @@ import { AppointmentService } from './appointment-service.service';
 import { AppointmentUpdateComponent } from './appointment-update/appointment-update.component';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
@@ -75,12 +76,29 @@ export class AppointmentsComponent implements OnInit {
       panelClass: 'custom-modalbox'
     });
 
-    /*dialogRef.afterClosed().subscribe(result => {
-      if (result == 'update') {
-        this.openModalSucces('Usuario actualizado', 'success');
-        this.loadListUser(this.admin.organization_id, this.pageSize, this.pageIndex);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == 'save') {
+        this.openModalSuccess('Tipo de cita guardada', 'success');
+        this.loadListAppointment(this.orderby, this.pageSize, this.pageIndex);
       }
-    });*/
+      if (result == 'update') {
+        this.openModalSuccess('Tipo de cita actualizada', 'success');
+        this.loadListAppointment(this.orderby, this.pageSize, this.pageIndex);
+      }
+      if (result == 'Error') {
+        this.openModalSuccess('Error al guardar los datos, intente nuevamente en unos minutos', 'error');
+      }
+    });
+  }
+
+  openModalSuccess(message:any, action:any) {
+    Swal.fire({
+      position: 'top-end',
+      icon: action,
+      title: message,
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
 
     async openModalWarning(obj:Appointment) {
@@ -89,28 +107,38 @@ export class AppointmentsComponent implements OnInit {
         text: "¡No podrás revertir esto!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#783c8f',
-        cancelButtonColor: '#24b4fc',
+        confirmButtonColor: '#F64D4D',
+        cancelButtonColor: '#0d6efd',
         confirmButtonText: '¡Sí, bórralo!',
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         return result;
       })
       if (result.isConfirmed) {
-        //this.deleteUser(user.email);
-        
+        this.deleteAppointment(obj.id);
       }
     }
 
+    deleteAppointment(id:number){
+      this._appointmentService.deleteAppointment(id)
+      .subscribe( res=> {
+        //console.log(res);
+        this.loadListAppointment(this.orderby, this.pageSize, this.pageIndex);
+      },
+      err => {
+        console.log(err);
+      })    
+    }
+
     public updateActiveStatus(element: Appointment) {
-      /*element.enabled = !element.enabled;
-      this.userService.updateStateUser(element.enabled ? 'enable' : 'disable',
-        element.email).subscribe(
+      element.active = !element.active; 
+      this._appointmentService.updateAppointment(element,element.id).subscribe(
           res => {
+            this.loadListAppointment(this.orderby, this.pageSize, this.pageIndex);
             Swal.fire({
               position: 'top-end',
               icon: 'success',
-              title: 'Estado del usuario actualizado',
+              title: 'Estado de la cita se ha actualizado',
               showConfirmButton: false,
               timer: 1500
             })
@@ -118,7 +146,7 @@ export class AppointmentsComponent implements OnInit {
           err => {
             console.log(err);
           }
-        );*/
+        );
     }
 
 }
